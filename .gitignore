@@ -1,0 +1,9 @@
+.vscode
+.idea
+/build
+cmake-build-debug
+googletest-release-1.11.0
+project/src/file_with_matrix.txt 
+a.out
+main.exe
+trash.c

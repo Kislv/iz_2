@@ -1,0 +1,52 @@
+os: linux
+dist: focal
+language: c
+
+compiler:
+ - gcc
+
+addons:
+  apt:
+    packages:
+      - cmake
+      - valgrind
+      - cppcheck
+
+install:
+ - sudo apt-get update
+ - sudo apt-get install --yes libgtest-dev
+# - sudo apt-get install --yes gcovr
+jobs:
+- stage: Build
+  script:
+   - cd /usr/src/gtest
+   - sudo cmake CMakeLists.txt
+   - sudo make
+   - sudo cp *.a /usr/lib
+   - cd "${TRAVIS_BUILD_DIR}"
+   - cmake .
+   - make
+
+  #  - sudo mkdir build
+  #  - cd build
+  #  - sudo cmake .. 
+  #  - sudo make
+  - stage: Test
+    script:
+  - cppcheck --enable=warning,performance,portability,style --language=c++ ./main
+  # - stage: Coverage
+  #   script:
+  #     - bash <(curl -s https://codecov.io/bash)
+
+  # - stage: TestCoverage
+  #   script:
+  #    - cmake -B build -DCMAKE_BUILD_TYPE=Debug -DWITH_COVERAGE=1
+  #    - make -C build all test
+  #    - curl -Os https://uploader.codecov.io/latest/linux.codecov
+  #    - chmod +x codecov
+  #    - ./codecov -f <(gcovr -x)
+  # - stage: Sanitize
+  #   script:
+  #    - cmake -B build -DCMAKE_BUILD_TYPE=Debug -DWITH_SANITIZERS=1
+  #    - make -C build
+  #    - cd build && ctest -- output-on-failure

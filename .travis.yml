@@ -12,10 +12,22 @@ addons:
       - valgrind
       - cppcheck
 
-install:
- - sudo apt-get update
- - sudo apt-get install --yes libgtest-dev
+#
+# install:
+#  - sudo apt-get update
+#  - sudo apt-get install --yes libgtest-dev
+
 # - sudo apt-get install --yes gcovr
+
+before_script:
+  - sudo apt-get install -y libgtest-dev
+  - cd /usr/src/gtest
+  - sudo cmake CMakeLists.txt
+  - sudo make
+  - sudo cp *.a /usr/lib
+  - cd "${TRAVIS_BUILD_DIR}"
+  - cmake .
+  - make
 
 #
 # jobs:
@@ -29,7 +41,9 @@ install:
 #    - cmake .
 #    - make
 
-
+script:
+  - cppcheck --enable=warning,performance,portability,style --language=c++ ./naive 
+  - cd "${TRAVIS_BUILD_DIR}"
 
   #  - sudo mkdir build
   #  - cd build
@@ -37,10 +51,10 @@ install:
   #  - sudo make
 
 
-#
-  # - stage: Test
-  #   script:
-  # - cppcheck --enable=warning,performance,portability,style --language=c++ ./main
+
+  - stage: Test
+    script:
+  - cppcheck --enable=warning,performance,portability,style --language=c++ ./main
 
 
 

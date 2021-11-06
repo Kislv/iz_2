@@ -4,7 +4,6 @@ extern "C" {
 #include "../include/matrix_operations.h"
 }
 
-
 TEST(MATRIX_TEST, square_matrix_test) {
     int rows_quan = 4;
     int columns_quan = 4;

@@ -12,28 +12,53 @@ addons:
       - valgrind
       - cppcheck
 
-install:
- - sudo apt-get update
- - sudo apt-get install --yes libgtest-dev
+#
+# install:
+#  - sudo apt-get update
+#  - sudo apt-get install --yes libgtest-dev
+
 # - sudo apt-get install --yes gcovr
-jobs:
-- stage: Build
-  script:
-   - cd /usr/src/gtest
-   - sudo cmake CMakeLists.txt
-   - sudo make
-   - sudo cp *.a /usr/lib
-   - cd "${TRAVIS_BUILD_DIR}"
-   - cmake .
-   - make
+
+before_script:
+  - sudo apt-get install -y libgtest-dev
+  - cd /usr/src/gtest
+  - sudo cmake CMakeLists.txt
+  - sudo make
+#  - sudo cp *.a /usr/lib
+  - cd "${TRAVIS_BUILD_DIR}"
+  - cmake .
+  - make
+
+#
+# jobs:
+# - stage: Build
+#   script:
+#    - cd /usr/src/gtest
+#    - sudo cmake CMakeLists.txt
+#    - sudo make
+#    - sudo cp *.a /usr/lib
+#    - cd "${TRAVIS_BUILD_DIR}"
+#    - cmake .
+#    - make
+
 
   #  - sudo mkdir build
   #  - cd build
   #  - sudo cmake .. 
   #  - sudo make
-  - stage: Test
-    script:
-  - cppcheck --enable=warning,performance,portability,style --language=c++ ./main
+
+
+
+ # - stage: Test
+script:
+  #- cppcheck --enable=all main
+  - cppcheck project/src/* --error-exitcode=1
+  - cppcheck project/include/* --error-exitcode=1
+  - cppcheck project/tests/* --error-exitcode=1
+  - cd "${TRAVIS_BUILD_DIR}"
+
+
+
   # - stage: Coverage
   #   script:
   #     - bash <(curl -s https://codecov.io/bash)

@@ -8,6 +8,7 @@
 #include <sys/types.h>
 #include <time.h>
 #include <malloc.h>
+#include <sys/mman.h>
 
 #define rows 100
 #define columns 50

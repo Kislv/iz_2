@@ -10,18 +10,24 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON) #
 
 include_directories(project/include) #
 
-add_library(matrix_operate STATIC project/src/matrix_operations.c project/src/consistent_sum_columns.c project/include/matrix_operations.h)
+add_library(sum_consistent STATIC project/src/matrix_operations.c project/src/consistent_sum_columns.c project/include/matrix_operations.h)
 
-add_executable(main project/src/main.c)
+add_library(sum_parallel SHARED project/src/matrix_operations.c project/src/parallel_sum_columns.c project/include/matrix_operations.h)
 
-target_link_libraries(main matrix_operate)
+add_executable(consistent project/src/main.c)
+
+add_executable(parallel project/src/main.c)
+
+target_link_libraries(consistent sum_consistent)
+target_link_libraries(parallel sum_parallel)
 
 enable_testing()
 find_package(GTest REQUIRED)
 include_directories(${GTEST_INCLUDE_DIR})
 #include_directories(${GTEST_INCLUDE_DIRS})
 add_executable(matrix_test project/tests/matrix_test.cpp project/src/consistent_sum_columns.c)
-target_link_libraries(matrix_test ${GTEST_LIBRARIES} matrix_operate)
+
+target_link_libraries(matrix_test ${GTEST_LIBRARIES} sum_consistent)
 target_link_libraries(matrix_test gtest pthread)
 #target_link_libraries(matrix_test ${GTEST_LIBRARIES} matrix_operate)
 

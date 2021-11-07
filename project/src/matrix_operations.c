@@ -50,6 +50,7 @@ void print_matrix(double ** matrix, int rows_quanity, int columns_quanity){
 }
 
 void fill_matrix(double** matrix, int rows_quanity, int columns_quanity){
+    if(matrix == NULL) return error_with_matrix;
     for (int i = 0;i < rows_quanity; ++i){
         for(int k =0; k<columns_quanity; ++k){
             matrix[i][k] = (double)(rand() % 20000 - 4000)/1000;

@@ -11,6 +11,7 @@ int main(int argc, char *argv[]){
     // argv[1] - path; argv[2] - quanity of rows; argv[3] - quanity of columns;
     // ./consistent "/home/viktor/Projects/c+c++/iz_2/project/src/file_with_matrix.txt" "1000" "1000"
     // ./parallel "/home/viktor/Projects/c+c++/iz_2/project/src/file_with_matrix.txt" "1000" "1000"
+    // git ls-files -c
     clock_t begin = clock();
     printf("start = %ld \n", begin);
 

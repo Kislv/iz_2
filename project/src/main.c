@@ -9,6 +9,8 @@
 
 int main(int argc, char *argv[]){
     // argv[1] - path; argv[2] - quanity of rows; argv[3] - quanity of columns;
+    // ./consistent "/home/viktor/Projects/c+c++/iz_2/project/src/file_with_matrix.txt" "1000" "1000"
+    // ./parallel "/home/viktor/Projects/c+c++/iz_2/project/src/file_with_matrix.txt" "1000" "1000"
     clock_t begin = clock();
     printf("start = %ld \n", begin);
 
@@ -29,7 +31,8 @@ int main(int argc, char *argv[]){
     FILE * file_with_matrix = fopen(argv[1],"r"); 
     if (file_with_matrix == NULL)
     {
-        assert("Error with file opening");        exit(1);
+        assert("Error with file opening");
+        exit(1);
     }
     clock_t begin_fill = clock();
     fill_matrix(matrix, rows_quan, columns_quan);
@@ -54,31 +57,31 @@ int main(int argc, char *argv[]){
     // }
     fclose(file_with_matrix);
     
-    double * rows_sum = (double*)malloc(sizeof(double)* columns_quan);
+    double * row_sum = (double*)malloc(sizeof(double)* columns_quan);
     clock_t begin_sum = clock();
-    int examination_sum = sum_columns(rows_sum, matrix, rows_quan,columns_quan);
+    int examination_sum = sum_columns(row_sum, matrix, rows_quan,columns_quan);
     clock_t end_sum = clock();
     printf("Sum time =  %f\n", difftime(end_sum, begin_sum));
     switch (examination_sum){
-        case error_rows_sum:
+        case error_row_sum:
             assert("Error: array with sums is empty");
-            free (rows_sum);
-            free_matrix(&matrix, rows_quan, columns_quan);
-            exit(error_rows_sum);
+            free (row_sum);
+            free_matrix(&matrix, rows_quan);
+            exit(error_row_sum);
         case error_with_matrix:
             assert("Error: matrix is empty");
-            free (rows_sum);
-            free_matrix(&matrix, rows_quan, columns_quan);
-            exit(error_rows_sum);
+            free (row_sum);
+            free_matrix(&matrix, rows_quan);
+            exit(error_row_sum);
         default:
             break;
     }
     // for(int i = 0;i< columns_quan;++i){
-    //     printf("%lf ",rows_sum[i]);
+    //     printf("%lf ",row_sum[i]);
     // }
     
-    free (rows_sum);
-    free_matrix(&matrix,rows_quan,columns_quan);
+    free (row_sum);
+    free_matrix(&matrix,rows_quan);
     sleep(1);
     clock_t end = clock();
     printf("end = %ld \n", end);

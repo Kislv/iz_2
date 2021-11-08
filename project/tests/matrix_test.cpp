@@ -23,7 +23,7 @@ TEST(MATRIX_TEST, square_matrix_test) {
     }
     free(rows_sum);
     free(alternative_rows_sum);
-    free_matrix(&matrix, rows_quan, columns_quan);
+    free_matrix(&matrix, rows_quan);
 }
 TEST(MATRIX_TEST, big_rows_quanity_test) {
     int rows_quan = 400;
@@ -44,7 +44,7 @@ TEST(MATRIX_TEST, big_rows_quanity_test) {
     }
     free(rows_sum);
     free(alternative_rows_sum);
-    free_matrix(&matrix, rows_quan, columns_quan);
+    free_matrix(&matrix, rows_quan);
 }
 
 /*

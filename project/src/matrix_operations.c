@@ -1,14 +1,14 @@
 #include "../include/matrix_operations.h"
 
 
-void init_matrix(double*** pmatrix, int rows_quanity, int columns_quanity){
+int init_matrix(double*** pmatrix, int rows_quanity, int columns_quanity){
     if(*pmatrix != NULL) return error_with_matrix;
     (*pmatrix) = (double**)malloc(sizeof(double*)*rows_quanity);
     for(int i = 0;i < rows_quanity; ++i){
         (*pmatrix)[i] =(double*)malloc(sizeof(double)*columns_quanity);
     }
 }
-void free_matrix(double*** pmatrix, int rows_quanity, int columns_quanity){
+int free_matrix(double*** pmatrix, int rows_quanity){
     if(*pmatrix ==NULL) return error_with_matrix;
     for(int i = 0;i < rows_quanity; ++i){
         free((*pmatrix)[i]);
@@ -49,14 +49,14 @@ void print_matrix(double ** matrix, int rows_quanity, int columns_quanity){
     }
 }
 
-void fill_matrix(double** matrix, int rows_quanity, int columns_quanity){
+int fill_matrix(double** matrix, int rows_quanity, int columns_quanity){
     if(matrix == NULL) return error_with_matrix;
     for (int i = 0;i < rows_quanity; ++i){
         for(int k =0; k<columns_quanity; ++k){
             matrix[i][k] = (double)(rand() % 20000 - 4000)/1000;
         }
     }
-    return;
+    return 0;
 }
 int sum_int(int a, int b){
     return a+b;

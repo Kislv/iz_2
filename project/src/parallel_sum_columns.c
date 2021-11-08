@@ -19,8 +19,9 @@ double sum_column(double** matrix, int rows_quanity, int number_column){
 }
 
 int sum_columns(double * rows_sum, double ** matrix, int rows_quanity, int columns_quanity){
-    if(rows_sum == NULL) return error_rows_sum;
+    if(rows_sum == NULL) return error_row_sum;
     if(matrix == NULL) return error_with_matrix;
+
 
     char *shared_memory = mmap(NULL, sizeof(double) * columns_quanity, PROT_READ | PROT_WRITE,
                                MAP_SHARED | MAP_ANONYMOUS, -1, 0);
@@ -34,9 +35,9 @@ int sum_columns(double * rows_sum, double ** matrix, int rows_quanity, int colum
     if (pid == -1) {
         printf("Fork failed\n");
         if (munmap(shared_memory, sizeof(double) * columns_quanity)) {
-            printf("Failed to unmap\n");
+            return error_unmap;
         }
-        return 1;
+        return error_fork;
     }
 
     if(pid == 0) p_num = 0;
@@ -63,11 +64,12 @@ int sum_columns(double * rows_sum, double ** matrix, int rows_quanity, int colum
         for(int i=0;i<10;++i){
             wait_result = wait(NULL);
             if(wait_result < 0){
-                printf("Wit failed\n");
+                printf("Wait failed\n");
                 if (munmap(shared_memory, sizeof(double) * columns_quanity)) {
                     printf("Failed to unmap\n");
+                    return error_unmap;
                 }
-                return 1;
+                return error_wait;
             }
         }
         for(int i = 0; i < columns_quanity; ++i){
@@ -76,6 +78,9 @@ int sum_columns(double * rows_sum, double ** matrix, int rows_quanity, int colum
     }
     else {
         exit(0);
+    }
+    if (munmap(shared_memory, sizeof(double) * columns_quanity)) {
+        return error_unmap;
     }
     return succes;
 }

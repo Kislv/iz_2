@@ -25,7 +25,7 @@ int main(){
 
     printf("BEFORE MATRIX[0][0]\n");
     printf(" MATRIX[0][0] = %lf\n",matrix[0][0]);
-    printf("AFTER DCLOSE\n");
+    printf("AFTER MATRIX[0][0]\n");
 
     int parall_res = 0;//(*my_func)(row_sum_parallel, (double**)matrix, rows_quan, columns_quan);
     time_t finish = clock();

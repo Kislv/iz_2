@@ -7,7 +7,7 @@
 
 
 
-int main(int argc, char *argv[]){
+int main(int argc, char *argv[]) {
     // argv[1] - path; argv[2] - quanity of rows; argv[3] - quanity of columns;
     // ./consistent "/home/viktor/Projects/c+c++/iz_2/project/src/file_with_matrix.txt" "1000" "1000"
     // ./parallel "/home/viktor/Projects/c+c++/iz_2/project/src/file_with_matrix.txt" "1000" "1000"
@@ -15,7 +15,7 @@ int main(int argc, char *argv[]){
     clock_t begin = clock();
     printf("start = %ld \n", begin);
 
-    if (argc != args_quanity){
+    if (argc != args_quanity) {
         assert("Error with quanity of arguments");
         exit(error_arg_quanity);
     }
@@ -26,10 +26,10 @@ int main(int argc, char *argv[]){
     // argv[1] = "/home/viktor/Projects/c+c++/iz_2/project/src/file_with_matrix.txt"
 
 
-    //  FILE * fill_file = fopen(argv[1],"w"); 
+    //  FILE * fill_file = fopen(argv[1],"w");
     //  fill_file_with_matrix(fill_file, matrix, rows_quan, columns_quan);
     //  fclose(fill_file);
-    FILE * file_with_matrix = fopen(argv[1],"r"); 
+    FILE * file_with_matrix = fopen(argv[1],"r");
     if (file_with_matrix == NULL)
     {
         assert("Error with file opening");
@@ -57,25 +57,25 @@ int main(int argc, char *argv[]){
     //         break;
     // }
     fclose(file_with_matrix);
-    
+
     double * row_sum = (double*)malloc(sizeof(double)* columns_quan);
     clock_t begin_sum = clock();
     int examination_sum = sum_columns(row_sum, matrix, rows_quan,columns_quan);
     clock_t end_sum = clock();
     printf("Sum time =  %f\n", difftime(end_sum, begin_sum));
-    switch (examination_sum){
-        case error_row_sum:
-            assert("Error: array with sums is empty");
-            free (row_sum);
-            free_matrix(&matrix, rows_quan);
-            exit(error_row_sum);
-        case error_with_matrix:
-            assert("Error: matrix is empty");
-            free (row_sum);
-            free_matrix(&matrix, rows_quan);
-            exit(error_row_sum);
-        default:
-            break;
+    switch (examination_sum) {
+    case error_row_sum:
+        assert("Error: array with sums is empty");
+        free (row_sum);
+        free_matrix(&matrix, rows_quan);
+        exit(error_row_sum);
+    case error_with_matrix:
+        assert("Error: matrix is empty");
+        free (row_sum);
+        free_matrix(&matrix, rows_quan);
+        exit(error_row_sum);
+    default:
+        break;
     }
 
     free (row_sum);

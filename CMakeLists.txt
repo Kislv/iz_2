@@ -23,7 +23,6 @@ add_executable(parallel project/src/main.c)
 
 add_executable(stress_test project/src/stress_test.c)
 
-
 #add_executable(trash_test project/src/trash_test.c) # trash
 
 

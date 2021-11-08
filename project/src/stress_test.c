@@ -1,8 +1,8 @@
 #include <dlfcn.h>
 #include "../include/matrix_operations.h"
 
-int main(){
-    srand(time(NULL));
+int main() {
+                srand(time(NULL));
     int rows_quan = 1000,
         columns_quan = 1000;
     double ** matrix = NULL;
@@ -88,7 +88,7 @@ int main(){
     finish = clock();
     clock_gettime(CLOCK_MONOTONIC, &end);
     printf("consistent start s = %ld, ns = %ld\n", end.tv_sec, end.tv_nsec);
-    alg_time = 1000000000*(end.tv_sec - begin.tv_sec)+(end.tv_nsec - begin.tv_nsec); 
+    alg_time = 1000000000*(end.tv_sec - begin.tv_sec)+(end.tv_nsec - begin.tv_nsec);
     printf("consistent sum time: %ld , clock() = %ld \n",alg_time, finish-start);
 
     switch (result_consistent)
@@ -100,7 +100,7 @@ int main(){
         assert("Invalid row_sum");
         exit(0);
         break;
-    
+
     case error_with_matrix:
         free(row_sum_consistent);
         free(row_sum_parallel);
@@ -114,10 +114,10 @@ int main(){
 
     free_matrix(&matrix, rows_quan);
     int sum_check = 0;
-    for(int k = 0; k < columns_quan; ++k){
+    for(int k = 0; k < columns_quan; ++k) {
         if(row_sum_consistent[k] != row_sum_parallel[k]) sum_check = 1;
     }
-    if(sum_check){
+    if(sum_check) {
         free(row_sum_consistent);
         free(row_sum_parallel);
         assert("Sum checking failed");

@@ -11,6 +11,7 @@ addons:
       - cmake
       - valgrind
       - cppcheck
+      - astyle  # install
 
 #
 # install:
@@ -20,6 +21,9 @@ addons:
 # - sudo apt-get install --yes gcovr
 
 before_script:
+  - astyle -n -r project/*.h
+  - astyle -n -r project/*.c
+  - astyle -n -r project/*.cpp
   - sudo apt-get install -y libgtest-dev
   - cd /usr/src/gtest
   - sudo cmake CMakeLists.txt

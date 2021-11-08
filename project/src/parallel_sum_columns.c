@@ -10,15 +10,15 @@
 //     return;
 // }
 
-double sum_column(double** matrix, int rows_quanity, int number_column){
+double sum_column(double** matrix, int rows_quanity, int number_column) {
     double sum = 0;
-    for (int i = 0; i <rows_quanity; ++i){
+    for (int i = 0; i <rows_quanity; ++i) {
         sum += matrix[i][number_column];
     }
     return sum;
 }
 
-int sum_columns(double * rows_sum, double ** matrix, int rows_quanity, int columns_quanity){
+int sum_columns(double * rows_sum, double ** matrix, int rows_quanity, int columns_quanity) {
     //printf("IN PARALLEL SUM_COLUMNS\n");
     if(rows_sum == NULL) return error_row_sum;
     if(matrix == NULL) return error_with_matrix;
@@ -42,19 +42,19 @@ int sum_columns(double * rows_sum, double ** matrix, int rows_quanity, int colum
     }
 
     if(pid == 0) p_num = 0;
-    if(p_num != 0){
-        for(int i = 1;i < 10; ++i){
-            if(pid != 0){
-                 pid = fork();
-                 if(pid == 0){
+    if(p_num != 0) {
+        for(int i = 1; i < 10; ++i) {
+            if(pid != 0) {
+                pid = fork();
+                if(pid == 0) {
                     p_num = i;
                     break;
-                 }
+                }
             }
         }
     }
-    if(p_num != -1){
-        for(int i = p_num; i< columns_quanity; i+=10){
+    if(p_num != -1) {
+        for(int i = p_num; i< columns_quanity; i+=10) {
             ((double*)(shared_memory))[i] = sum_column(matrix, rows_quanity, i);
         }
     }
@@ -63,9 +63,9 @@ int sum_columns(double * rows_sum, double ** matrix, int rows_quanity, int colum
 
     if (pid != 0) {
         pid_t wait_result;
-        for(int i=0;i<10;++i){
+        for(int i=0; i<10; ++i) {
             wait_result = wait(NULL);
-            if(wait_result < 0){
+            if(wait_result < 0) {
                 printf("Wait failed\n");
                 if (munmap(shared_memory, sizeof(double) * columns_quanity)) {
                     printf("Failed to unmap\n");
@@ -74,15 +74,15 @@ int sum_columns(double * rows_sum, double ** matrix, int rows_quanity, int colum
                 return error_wait;
             }
         }
-        for(int i = 0; i < columns_quanity; ++i){
+        for(int i = 0; i < columns_quanity; ++i) {
             rows_sum[i] =((double*)(shared_memory))[i];
         }
     }
     else {
         exit(0);
     }
-     if (munmap(shared_memory, sizeof(double) * columns_quanity)) {
-         return error_unmap;
-     }
+    if (munmap(shared_memory, sizeof(double) * columns_quanity)) {
+        return error_unmap;
+    }
     return succes;
 }

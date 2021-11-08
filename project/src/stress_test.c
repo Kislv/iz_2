@@ -12,8 +12,9 @@ int main(){
     double *row_sum_parallel = (double*)malloc(sizeof(double) * columns_quan);
 
     void* d_library;
-    int (*my_func)( double* row_sum_parallel, double** matrix, int size_n, int size_m);
-    d_library = dlopen("../build/libsum_parallel.so", RTLD_LAZY);          //without build
+    int (*my_func)( double* row_sum_parallel, double** matrix, int rows_q, int columns_q);
+    //d_library = dlopen("../build/libsum_parallel.so", RTLD_LAZY);          //without build. Correct for local
+    d_library = dlopen("libsum_parallel.so", RTLD_LAZY);          // for travis
     long int alg_time;
     *(int**)(&my_func) = dlsym(d_library, "sum_columns");
 

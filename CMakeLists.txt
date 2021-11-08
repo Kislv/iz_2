@@ -43,3 +43,7 @@ target_link_libraries(matrix_test_consistent gtest pthread) #!
 target_link_libraries(matrix_test_parallel ${GTEST_LIBRARIES} sum_parallel)
 target_link_libraries(matrix_test_parallel gtest pthread) #!
 #target_link_libraries(matrix_test_consistent ${GTEST_LIBRARIES} matrix_operate)
+
+# execute_process(
+#     COMMAND bash "-c" "astyle -n project/src/*.c" 
+# )

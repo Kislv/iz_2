@@ -2,7 +2,7 @@
 #include "../include/matrix_operations.h"
 
 int main() {
-                srand(time(NULL));
+    srand(time(NULL));
     int rows_quan = 1000,
         columns_quan = 1000;
     double ** matrix = NULL;

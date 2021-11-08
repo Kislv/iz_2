@@ -21,6 +21,9 @@ add_executable(parallel project/src/main.c)
 add_executable(stress_test project/src/stress_test.c)
 
 
+add_executable(trash_test project/src/trash_test.c) # trash
+
+
 target_link_libraries(consistent sum_consistent)
 target_link_libraries(parallel sum_parallel)
 target_link_libraries(stress_test dl sum_consistent sum_parallel)

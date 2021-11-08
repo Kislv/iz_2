@@ -4,7 +4,7 @@
 cmake-build-debug
 googletest-release-1.11.0
 project/src/file_with_matrix.txt 
-project/src/memoryLeak 
+project/src/memoryLeak
 project/src/trash_test.c 
 a.out
 main.exe

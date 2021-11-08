@@ -55,7 +55,7 @@ script:
   - cppcheck project/src/* --error-exitcode=1
   - cppcheck project/include/* --error-exitcode=1
   - cppcheck project/tests/* --error-exitcode=1
-  - ./stress
+  - ./stress_test
   - cd "${TRAVIS_BUILD_DIR}"
 
 

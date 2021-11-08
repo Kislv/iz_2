@@ -120,5 +120,6 @@ int main(){
     //printf("stress test done\n");
     free(row_sum_consistent);
     free(row_sum_parallel);
+    exit(0);
     return 0;
 }

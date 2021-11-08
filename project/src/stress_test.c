@@ -22,6 +22,11 @@ int main(){
     clock_gettime(CLOCK_MONOTONIC, &begin);
     printf("parall start s = %ld, ns = %ld\n", begin.tv_sec, begin.tv_nsec);
     time_t start = clock();
+
+    printf("BEFORE MATRIX[0][0]\n");
+    printf(" MATRIX[0][0] = %lf\n",matrix[0][0]);
+    printf("AFTER DCLOSE\n");
+
     int parall_res = 0;//(*my_func)(row_sum_parallel, (double**)matrix, rows_quan, columns_quan);
     time_t finish = clock();
     clock_gettime(CLOCK_MONOTONIC, &end);
@@ -72,9 +77,7 @@ int main(){
 
     alg_time = 1000000000*(end.tv_sec - begin.tv_sec)+(end.tv_nsec - begin.tv_nsec);
     printf("Parall sum time: %ld\n",alg_time);
-    printf("BEFORE DCLOSE\n");
     dlclose(d_library);
-    printf("AFTER DCLOSE\n");
 
     clock_gettime(CLOCK_MONOTONIC, &begin);
     printf("consistent start s = %ld, ns = %ld\n", begin.tv_sec, begin.tv_nsec);

@@ -22,7 +22,7 @@ int main(){
     clock_gettime(CLOCK_MONOTONIC, &begin);
     printf("parall start s = %ld, ns = %ld\n", begin.tv_sec, begin.tv_nsec);
     time_t start = clock();
-    int parall_res = (*my_func)(row_sum_parallel, (double**)matrix, rows_quan, columns_quan);
+    int parall_res = 0;//(*my_func)(row_sum_parallel, (double**)matrix, rows_quan, columns_quan);
     time_t finish = clock();
     clock_gettime(CLOCK_MONOTONIC, &end);
     alg_time = 1000000000*(end.tv_sec - begin.tv_sec)+(end.tv_nsec - begin.tv_nsec);

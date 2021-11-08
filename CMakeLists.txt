@@ -5,10 +5,10 @@ project(sum_columns_project)
 set(CMAKE_C_STANDARD 11)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON) #
-set(CMAKE_C_FLAGS "-Wall -Werror -Wpedantic -fprofile-arcs -ftest-coverage")
+set(CMAKE_C_FLAGS "-g -Og -std=gnu99 -static-libasan -Wall -Werror -Wpedantic -fprofile-arcs -ftest-coverage") # -g -Og -std=gnu99 -static-libasan
 set(CMAKE_CXX_FLAGS " -Wall -Werror -Wpedantic -fprofile-arcs -ftest-coverage")
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fsanitize=address") #
-set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -fsanitize=address") #
+#set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fsanitize=address") #
+#set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -fsanitize=address") #
 
 include_directories(project/include) #
 

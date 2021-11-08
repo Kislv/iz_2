@@ -19,17 +19,17 @@ double sum_column(double** matrix, int rows_quanity, int number_column){
 }
 
 int sum_columns(double * rows_sum, double ** matrix, int rows_quanity, int columns_quanity){
-    printf("IN PARALLEL SUM_COLUMNS\n");
+    //printf("IN PARALLEL SUM_COLUMNS\n");
     if(rows_sum == NULL) return error_row_sum;
     if(matrix == NULL) return error_with_matrix;
-    printf("AFTER CHEVKING FOR NULL POINTERS\n");
+    //printf("AFTER CHEVKING FOR NULL POINTERS\n");
     char *shared_memory = mmap(NULL, sizeof(double) * columns_quanity, PROT_READ | PROT_WRITE,
                                MAP_SHARED | MAP_ANONYMOUS, -1, 0);
     if (!shared_memory) {
         printf("Failed to map\n");
         return 1;
     }
-    printf("AFTER SHARING MEMORY WITH MMAP\n");
+    //printf("AFTER SHARING MEMORY WITH MMAP\n");
     int p_num = -1;
     pid_t pid =fork();
 
@@ -58,7 +58,7 @@ int sum_columns(double * rows_sum, double ** matrix, int rows_quanity, int colum
             ((double*)(shared_memory))[i] = sum_column(matrix, rows_quanity, i);
         }
     }
-    printf("AFTER CALCULATING SUM_COLUMN\n");
+    //printf("AFTER CALCULATING SUM_COLUMN\n");
 
 
     if (pid != 0) {
@@ -81,8 +81,12 @@ int sum_columns(double * rows_sum, double ** matrix, int rows_quanity, int colum
     else {
         exit(0);
     }
-    if (munmap(shared_memory, sizeof(double) * columns_quanity)) {
-        return error_unmap;
-    }
+     if (munmap(shared_memory, sizeof(double) * columns_quanity)) {
+         return error_unmap;
+     }
+     int * leak = (int*)malloc(sizeof(int));
+     *leak = 5;
+     printf("!!!!!!!!!!!!!%d!!!!!!!!!!!!!!!\n",*leak);
+     free(leak);
     return succes;
 }

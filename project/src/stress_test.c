@@ -72,7 +72,9 @@ int main(){
 
     alg_time = 1000000000*(end.tv_sec - begin.tv_sec)+(end.tv_nsec - begin.tv_nsec);
     printf("Parall sum time: %ld\n",alg_time);
+    printf("BEFORE DCLOSE\n");
     dlclose(d_library);
+    printf("AFTER DCLOSE\n");
 
     clock_gettime(CLOCK_MONOTONIC, &begin);
     printf("consistent start s = %ld, ns = %ld\n", begin.tv_sec, begin.tv_nsec);

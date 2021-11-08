@@ -20,13 +20,13 @@ int main(){
 
     struct timespec begin, end;
     clock_gettime(CLOCK_MONOTONIC, &begin);
-    //printf("parall start s = %ld, ns = %ld\n", begin.tv_sec, begin.tv_nsec);
+    printf("parall start s = %ld, ns = %ld\n", begin.tv_sec, begin.tv_nsec);
     time_t start = clock();
     int parall_res = (*my_func)(row_sum_parallel, (double**)matrix, rows_quan, columns_quan);
     time_t finish = clock();
     clock_gettime(CLOCK_MONOTONIC, &end);
     alg_time = 1000000000*(end.tv_sec - begin.tv_sec)+(end.tv_nsec - begin.tv_nsec);
-    //printf("parall sum time: %ld , clock() = %ld \n",alg_time, finish-start);
+    printf("parall sum time: %ld , clock() = %ld \n",alg_time, finish-start);
 
 
     switch (parall_res)
@@ -71,18 +71,18 @@ int main(){
     }
 
     alg_time = 1000000000*(end.tv_sec - begin.tv_sec)+(end.tv_nsec - begin.tv_nsec);
-    //printf("Parall sum time: %ld\n",alg_time);
+    printf("Parall sum time: %ld\n",alg_time);
     dlclose(d_library);
 
     clock_gettime(CLOCK_MONOTONIC, &begin);
-    //printf("consistent start s = %ld, ns = %ld\n", begin.tv_sec, begin.tv_nsec);
+    printf("consistent start s = %ld, ns = %ld\n", begin.tv_sec, begin.tv_nsec);
     start = clock();
     int result_consistent = sum_columns(row_sum_consistent, matrix, rows_quan, columns_quan);
     finish = clock();
     clock_gettime(CLOCK_MONOTONIC, &end);
-    //printf("consistent start s = %ld, ns = %ld\n", end.tv_sec, end.tv_nsec);
+    printf("consistent start s = %ld, ns = %ld\n", end.tv_sec, end.tv_nsec);
     alg_time = 1000000000*(end.tv_sec - begin.tv_sec)+(end.tv_nsec - begin.tv_nsec); 
-    //printf("consistent sum time: %ld , clock() = %ld \n",alg_time, finish-start);
+    printf("consistent sum time: %ld , clock() = %ld \n",alg_time, finish-start);
 
     switch (result_consistent)
     {
@@ -108,7 +108,6 @@ int main(){
     free_matrix(&matrix, rows_quan);
     int sum_check = 0;
     for(int k = 0; k < columns_quan; ++k){
-        //printf("row_sum_consistent[i] = %lf, row_sum_parallel =%lf",)
         if(row_sum_consistent[k] != row_sum_parallel[k]) sum_check = 1;
     }
     if(sum_check){
@@ -117,7 +116,7 @@ int main(){
         assert("Sum checking failed");
         exit(0);
     };
-    //printf("stress test done\n");
+    printf("stress test done\n");
     free(row_sum_consistent);
     free(row_sum_parallel);
     //exit(0);

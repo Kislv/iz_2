@@ -7,6 +7,7 @@ int init_matrix(double*** pmatrix, int rows_quanity, int columns_quanity){
     for(int i = 0;i < rows_quanity; ++i){
         (*pmatrix)[i] =(double*)malloc(sizeof(double)*columns_quanity);
     }
+    return succes;
 }
 int free_matrix(double*** pmatrix, int rows_quanity){
     if(*pmatrix ==NULL) return error_with_matrix;
@@ -14,6 +15,7 @@ int free_matrix(double*** pmatrix, int rows_quanity){
         free((*pmatrix)[i]);
     }
     free(*pmatrix);
+    return succes;
 }
 
 int fill_file_with_matrix (FILE * file, double ** matrix, int rows_quanity, int columns_quanity){
@@ -34,11 +36,11 @@ int fill_matrix_from_file(FILE * file, double ** matrix, int rows_quanity, int c
     if (file == NULL) return error_with_file;
     for(int i = 0; i< rows_quanity; ++i){
         for(int k = 0; k < columns_quanity; ++k){
-            if(fscanf(file,"%lf", &(matrix[i][k])) == NULL) return error_with_scan;
+            if(fscanf(file,"%lf", &(matrix[i][k])) == 0) return error_with_scan;
         }
     }
     return succes;
-};
+}
 
 void print_matrix(double ** matrix, int rows_quanity, int columns_quanity){
         for(int i = 0; i< rows_quanity; ++i){

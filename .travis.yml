@@ -39,7 +39,6 @@ before_script:
   #  - sudo make
 
 
-
  # - stage: Test
 script:
   - valgrind --track-origins=yes --leak-check=full ./matrix_test_consistent

@@ -29,19 +29,6 @@ before_script:
   - cmake .
   - make
 
-#
-# jobs:
-# - stage: Build
-#   script:
-#    - cd /usr/src/gtest
-#    - sudo cmake CMakeLists.txt
-#    - sudo make
-#    - sudo cp *.a /usr/lib
-#    - cd "${TRAVIS_BUILD_DIR}"
-#    - cmake .
-#    - make
-
-
   #  - sudo mkdir build
   #  - cd build
   #  - sudo cmake .. 
@@ -58,14 +45,11 @@ script:
   - cppcheck project/tests/* --error-exitcode=1
 #  - ./stress_test # change 1
   - cd "${TRAVIS_BUILD_DIR}" #change 1
-  
+
 after_success:
   - bash <(curl -s https://codecov.io/bash)
 
 
-  # - stage: Coverage
-  #   script:
-  #     - bash <(curl -s https://codecov.io/bash)
 
   # - stage: TestCoverage
   #   script:

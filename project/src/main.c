@@ -77,10 +77,7 @@ int main(int argc, char *argv[]){
         default:
             break;
     }
-    // for(int i = 0;i< columns_quan;++i){
-    //     printf("%lf ",row_sum[i]);
-    // }
-    
+
     free (row_sum);
     free_matrix(&matrix,rows_quan);
     sleep(1);

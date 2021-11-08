@@ -8,8 +8,8 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON) #
 set(CMAKE_C_FLAGS "-g -Og -std=gnu99 -static-libasan -Wall -Werror -Wpedantic -fprofile-arcs -ftest-coverage") # -g -Og -std=gnu99 -static-libasan
 set(CMAKE_CXX_FLAGS " -Wall -Werror -Wpedantic -fprofile-arcs -ftest-coverage")
 SET(MYCOMPILE_FLAGS "-std=c11")
-#set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fsanitize=address") #
-#set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -fsanitize=address") #
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fsanitize=address") #
+set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -fsanitize=address") #
 
 include_directories(project/include) #
 
@@ -44,30 +44,3 @@ target_link_libraries(matrix_test_consistent gtest pthread) #!
 target_link_libraries(matrix_test_parallel ${GTEST_LIBRARIES} sum_parallel)
 target_link_libraries(matrix_test_parallel gtest pthread) #!
 #target_link_libraries(matrix_test_consistent ${GTEST_LIBRARIES} matrix_operate)
-
-
-
-
-
-
-
-# option(WITH_SANITIZERS "check coverage")
-# if(WITH_SANITIZERS)
-#     add_compile_options(-fsanitize=address)
-#     add_link_options(-fsanitize=address)
-#     set(BUILT_TEST 1)
-# endif()
-
-#set(LIB_SOURCE_FILES fib.cpp)
-#add_library(fib STATIC ${LIB_SOURCE_FILES})
-
-#add_executable(main main.cpp)
-#target_link_libraries(main fib)
-  
-#enable_testing()
-#find_package(GTest REQUIRED)
-
-#include_directories(${GTEST_INCLUDE_DIRS})
-#add_executable(fib_test fib_test.cpp)
-#target_link_libraries(fib_test gtest pthread)
-#target_link_libraries(fib_test ${GTEST_LIBRARIES} fib)

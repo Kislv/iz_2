@@ -47,15 +47,6 @@ TEST(MATRIX_TEST, big_rows_quanity_test) {
     free_matrix(&matrix, rows_quan);
 }
 
-/*
-TEST(FIB_OPT_TEST, Assert_1) {
-EXPECT_EQ(fib_opt(1), 1);
-}
-
-TEST(FIB_TEST, Compare_20) {
-EXPECT_EQ(fib(20), fib_opt(20));
-}
-*/
 int main(int argc, char **argv) {
     ::testing::InitGoogleTest(&argc, argv);
     return RUN_ALL_TESTS();

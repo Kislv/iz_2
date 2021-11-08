@@ -36,4 +36,3 @@ int fill_matrix(double** matrix, int rows_quanity, int columns_quanity);
 
 int sum_int(int a, int b);
 
-//int str_to_int(const char* str);

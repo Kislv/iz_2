@@ -84,9 +84,5 @@ int sum_columns(double * rows_sum, double ** matrix, int rows_quanity, int colum
      if (munmap(shared_memory, sizeof(double) * columns_quanity)) {
          return error_unmap;
      }
-     int * leak = (int*)malloc(sizeof(int));
-     *leak = 5;
-     printf("!!!!!!!!!!!!!%d!!!!!!!!!!!!!!!\n",*leak);
-     free(leak);
     return succes;
 }

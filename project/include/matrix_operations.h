@@ -33,6 +33,5 @@ void print_matrix(double ** matrix, int rows_quanity, int columns_quanity);
 double sum_column(double** matrix, int rows_quanity, int number_column);
 int sum_columns(double * row_sum, double ** matrix, int rows_quanity, int columns_quanity);
 int fill_matrix(double** matrix, int rows_quanity, int columns_quanity);
-int transpose(double **matrix, double **transposed_matrix, int rows_quanity, int columns_quanity);
 
-
+int sum_int(int a, int b);

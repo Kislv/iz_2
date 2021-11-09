@@ -18,22 +18,11 @@ double sum_column(double** matrix, int rows_quanity, int number_column) {
     return sum;
 }
 
-double sum_row(double* row, int columns_quanity) {
-    double sum = 0;
-    for (int i = 0; i < columns_quanity; ++i) {
-        sum += row[i];
-    }
-    return sum;
-}
-
 int sum_columns(double * rows_sum, double ** matrix, int rows_quanity, int columns_quanity) {
     //printf("IN PARALLEL SUM_COLUMNS\n");
     if(rows_sum == NULL) return error_row_sum;
     if(matrix == NULL) return error_with_matrix;
     //printf("AFTER CHEVKING FOR NULL POINTERS\n");
-    double ** transposed_matrix = NULL;
-    init_matrix(&transposed_matrix, columns_quanity, rows_quanity);
-    transpose(matrix, transposed_matrix, rows_quanity, columns_quanity);
     char *shared_memory = mmap(NULL, sizeof(double) * columns_quanity, PROT_READ | PROT_WRITE,
                                MAP_SHARED | MAP_ANONYMOUS, -1, 0);
     if (!shared_memory) {
@@ -66,7 +55,7 @@ int sum_columns(double * rows_sum, double ** matrix, int rows_quanity, int colum
     }
     if(p_num != -1) {
         for(int i = p_num; i< columns_quanity; i+=10) {
-            ((double*)(shared_memory))[i] = sum_row(transposed_matrix[i], columns_quanity);//sum_column(matrix, rows_quanity, i);
+            ((double*)(shared_memory))[i] = sum_column(matrix, rows_quanity, i);
         }
     }
     //printf("AFTER CALCULATING SUM_COLUMN\n");

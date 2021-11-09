@@ -2,8 +2,14 @@
 .idea
 /build
 cmake-build-debug
+CMakeFiles
+Makefile
 googletest-release-1.11.0
-project/src/file_with_matrix.txt 
+project/src/file_with_matrix.txt
+/project/src/memoryLeak
+/project/src/trash_test.c
 a.out
 main.exe
 trash.c
+trash
+/trash_d

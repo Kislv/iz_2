@@ -47,7 +47,7 @@ int main() {
         assert("Invalid matrix");
         exit(0);
         break;
-    case error_unmap:
+    case unlikely(error_unmap):
         free(row_sum_consistent);
         free(row_sum_parallel);
         free_matrix(&matrix, rows_quan);
@@ -96,7 +96,7 @@ int main() {
         exit(0);
         break;
 
-    case error_with_matrix:
+    case unlikely(error_with_matrix):
         free(row_sum_consistent);
         free(row_sum_parallel);
         free_matrix(&matrix, rows_quan);
@@ -110,9 +110,9 @@ int main() {
     free_matrix(&matrix, rows_quan);
     int sum_check = 0;
     for(int k = 0; k < columns_quan; ++k) {
-        if(row_sum_consistent[k] != row_sum_parallel[k]) sum_check = 1;
+        if(unlikely(row_sum_consistent[k] != row_sum_parallel[k])) sum_check = 1;
     }
-    if(sum_check) {
+    if(unlikely(sum_check)) {
         free(row_sum_consistent);
         free(row_sum_parallel);
         assert("Sum checking failed");

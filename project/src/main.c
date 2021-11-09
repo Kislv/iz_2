@@ -15,7 +15,7 @@ int main(int argc, char *argv[]) {
     clock_t begin = clock();
     printf("start = %ld \n", begin);
 
-    if (argc != args_quanity) {
+    if (unlikely(argc != args_quanity)) {
         assert("Error with quanity of arguments");
         exit(error_arg_quanity);
     }
@@ -30,7 +30,7 @@ int main(int argc, char *argv[]) {
     //  fill_file_with_matrix(fill_file, matrix, rows_quan, columns_quan);
     //  fclose(fill_file);
     FILE * file_with_matrix = fopen(argv[1],"r");
-    if (file_with_matrix == NULL)
+    if (unlikely(file_with_matrix == NULL))
     {
         assert("Error with file opening");
         exit(1);
@@ -64,7 +64,7 @@ int main(int argc, char *argv[]) {
     clock_t end_sum = clock();
     printf("Sum time =  %f\n", difftime(end_sum, begin_sum));
     switch (examination_sum) {
-    case error_row_sum:
+    case unlikely(error_row_sum):
         assert("Error: array with sums is empty");
         free (row_sum);
         free_matrix(&matrix, rows_quan);
@@ -83,6 +83,6 @@ int main(int argc, char *argv[]) {
     sleep(1);
     clock_t end = clock();
     printf("end = %ld \n", end);
-    printf(" Time = %f \n",difftime(end,begin)/*(double)(end - begin)/CLOCKS_PER_SEC*/);
+    printf(" Time = %lf \n",difftime(end,begin)/*(double)(end - begin)/CLOCKS_PER_SEC*/);
     return 0;
 }

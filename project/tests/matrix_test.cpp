@@ -5,7 +5,7 @@ extern "C" {
 }
 
 TEST(MATRIX_TEST, square_matrix_test) {
-                                            int rows_quan = 4;
+    int rows_quan = 4;
     int columns_quan = 4;
     double ** matrix = NULL;
     init_matrix(&matrix, rows_quan, columns_quan);

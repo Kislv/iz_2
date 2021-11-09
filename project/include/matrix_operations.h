@@ -24,6 +24,8 @@
 #define error_fork 6
 #define error_unmap 7
 #define error_wait 8
+#define unlikely(expr) __builtin_expect(!!(expr), 0)
+#define likely(expr) __builtin_expect(!!(expr), 1)
 
 int init_matrix(double*** pmatrix, int rows_quanity, int columns_quanity);
 int free_matrix(double*** pmatrix, int rows_quanity);
@@ -34,4 +36,3 @@ double sum_column(double** matrix, int rows_quanity, int number_column);
 int sum_columns(double * row_sum, double ** matrix, int rows_quanity, int columns_quanity);
 int fill_matrix(double** matrix, int rows_quanity, int columns_quanity);
 
-int sum_int(int a, int b);

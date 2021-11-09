@@ -47,10 +47,10 @@ script:
   - cpplint —headers=h —linelength=110 —filter=-runtime/int,-legal/copyright,-build/include_subdir,-build/include —extensions=cpp ../project/tests/matrix_test.cpp
   - valgrind --track-origins=yes --leak-check=full ./matrix_test_consistent
   - valgrind --track-origins=yes --leak-check=full ./matrix_test_parallel
+  - valgrind --track-origins=yes --leak-check=full ./stress_gtest
   - cppcheck project/src/* --error-exitcode=1
   - cppcheck project/include/* --error-exitcode=1
   - cppcheck project/tests/* --error-exitcode=1
-  - ./stress_gtest # change 1
   - cd "${TRAVIS_BUILD_DIR}" #change 1
 
 after_success:

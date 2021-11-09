@@ -44,7 +44,7 @@ before_script:
 
  # - stage: Test
 script:
-  - cpplint —headers=h —linelength=110 —filter=-runtime/int,-legal/copyright,-build/include_subdir,-build/include —extensions=cpp ../project/tests/*
+  - cpplint —headers=h —linelength=110 —filter=-runtime/int,-legal/copyright,-build/include_subdir,-build/include —extensions=cpp ../project/tests/matrix_test.cpp
   - valgrind --track-origins=yes --leak-check=full ./matrix_test_consistent
   - valgrind --track-origins=yes --leak-check=full ./matrix_test_parallel
   - cppcheck project/src/* --error-exitcode=1

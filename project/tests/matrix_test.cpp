@@ -13,7 +13,7 @@ TEST(MATRIX_TEST, square_matrix_test) {
 
     double * rows_sum = (double*)malloc(sizeof(double)* columns_quan);
     int examination_sum = sum_columns(rows_sum, matrix, rows_quan, columns_quan);
-    EXPECT_EQ(examination_sum, succes);
+    EXPECT_EQ(examination_sum, success);
     double * alternative_rows_sum = (double*)malloc(sizeof(double)* columns_quan);
     for(int i =0; i< columns_quan; ++i) {
         alternative_rows_sum[i] = sum_column(matrix, rows_quan, i);
@@ -34,7 +34,7 @@ TEST(MATRIX_TEST, big_rows_quanity_test) {
 
     double * rows_sum = (double*)malloc(sizeof(double)* columns_quan);
     int examination_sum = sum_columns(rows_sum, matrix, rows_quan, columns_quan);
-    EXPECT_EQ(examination_sum, succes);
+    EXPECT_EQ(examination_sum, success);
     double * alternative_rows_sum = (double*)malloc(sizeof(double)* columns_quan);
     for(int i =0; i< columns_quan; ++i) {
         alternative_rows_sum[i] = sum_column(matrix, rows_quan, i);

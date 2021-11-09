@@ -35,13 +35,17 @@ find_package(GTest REQUIRED)
 include_directories(${GTEST_INCLUDE_DIR})
 #include_directories(${GTEST_INCLUDE_DIRS})
 add_executable(matrix_test_consistent project/tests/matrix_test.cpp project/src/consistent_sum_columns.c)
+add_executable(matrix_test_parallel project/tests/matrix_test.cpp project/src/parallel_sum_columns.c)
 
-add_executable(matrix_test_parallel project/tests/matrix_test.cpp project/src/parallel_sum_columns.c)    
+add_executable(stress_gtest project/tests/stress_gtest.cpp)#project/src/parallel_sum_columns.c project/src/consistent_sum_columns.c
 
 target_link_libraries(matrix_test_consistent ${GTEST_LIBRARIES} sum_consistent)
 target_link_libraries(matrix_test_consistent gtest pthread) #!
 target_link_libraries(matrix_test_parallel ${GTEST_LIBRARIES} sum_parallel)
 target_link_libraries(matrix_test_parallel gtest pthread) #!
+
+target_link_libraries(stress_gtest ${GTEST_LIBRARIES} dl sum_parallel sum_consistent)
+target_link_libraries(stress_gtest gtest pthread) #!
 #target_link_libraries(matrix_test_consistent ${GTEST_LIBRARIES} matrix_operate)
 
 # execute_process(

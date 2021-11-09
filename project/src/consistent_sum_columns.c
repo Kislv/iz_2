@@ -13,5 +13,5 @@ int sum_columns(double * rows_sum, double ** matrix, int rows_quanity, int colum
     for(al4int_t i =0; i< columns_quanity; ++i) {
         rows_sum[i] = sum_column(matrix, rows_quanity, i);
     }
-    return succes;
+    return success;
 }

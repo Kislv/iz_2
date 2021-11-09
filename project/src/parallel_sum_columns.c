@@ -84,5 +84,5 @@ int sum_columns(double * rows_sum, double ** matrix, int rows_quanity, int colum
     if (unlikely(munmap(shared_memory, sizeof(double) * columns_quanity))) {
         return error_unmap;
     }
-    return succes;
+    return success;
 }

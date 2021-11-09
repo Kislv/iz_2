@@ -18,7 +18,7 @@ typedef double __attribute((aligned(8))) al8double_t;
 #define columns 50
 #define args_quanity 4
 
-#define succes 0
+#define success 0
 #define error_with_file 1
 #define error_with_matrix 2
 #define error_with_scan 3

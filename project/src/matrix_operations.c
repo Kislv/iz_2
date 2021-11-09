@@ -49,7 +49,7 @@ void print_matrix(double ** matrix, int rows_quanity, int columns_quanity) {
         }
         printf("\n");
     }
-}
+} 
 
 int fill_matrix(double** matrix, int rows_quanity, int columns_quanity) {
     if(matrix == NULL) return error_with_matrix;

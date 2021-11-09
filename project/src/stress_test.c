@@ -3,8 +3,8 @@
 
 int main() {
     srand(time(NULL));
-    int rows_quan = 1000,
-        columns_quan = 1000;
+    int rows_quan = 10000,
+        columns_quan = 5000;
     double ** matrix = NULL;
     init_matrix(&matrix, rows_quan, columns_quan);
     fill_matrix(matrix,rows_quan, columns_quan);
@@ -15,25 +15,20 @@ int main() {
     int (*my_func)( double* row_sum_parallel, double** matrix, int rows_q, int columns_q);
     //d_library = dlopen("../build/libsum_parallel.so", RTLD_LAZY);          //without build. Correct for local
     d_library = dlopen("libsum_parallel.so", RTLD_LAZY);          // for travis
-    long int alg_time;
+    //long int alg_time;
     *(int**)(&my_func) = dlsym(d_library, "sum_columns");
 
 
-    struct timespec begin, end;
-    clock_gettime(CLOCK_MONOTONIC, &begin);
-    printf("parall start s = %ld, ns = %ld\n", begin.tv_sec, begin.tv_nsec);
+    //struct timespec begin, end;
+    //clock_gettime(CLOCK_MONOTONIC, &begin);
+    //printf("parall start s = %ld, ns = %ld\n", begin.tv_sec, begin.tv_nsec);
     time_t start = clock();
 
-    printf("BEFORE MATRIX[0][0]\n");
-    printf(" MATRIX[0][0] = %lf\n",matrix[0][0]);
-    printf("AFTER MATRIX[0][0]\n");
-    printf("BEFORE PARALL SUM\n");
     int parall_res = (*my_func)(row_sum_parallel, (double**)matrix, rows_quan, columns_quan);
-    printf("AFTER PARALL SUM\n");
     time_t finish = clock();
-    clock_gettime(CLOCK_MONOTONIC, &end);
-    alg_time = 1000000000*(end.tv_sec - begin.tv_sec)+(end.tv_nsec - begin.tv_nsec);
-    printf("parall sum time: %ld , clock() = %ld \n",alg_time, finish-start);
+    //clock_gettime(CLOCK_MONOTONIC, &end);
+    //alg_time = 1000000000*(end.tv_sec - begin.tv_sec)+(end.tv_nsec - begin.tv_nsec);
+    printf("parall sum time: clock() = %ld \n", finish-start);
 
 
     switch (parall_res)
@@ -77,19 +72,19 @@ int main() {
         break;
     }
 
-    alg_time = 1000000000*(end.tv_sec - begin.tv_sec)+(end.tv_nsec - begin.tv_nsec);
-    printf("Parall sum time: %ld\n",alg_time);
+    //alg_time = 1000000000*(end.tv_sec - begin.tv_sec)+(end.tv_nsec - begin.tv_nsec);
+    //printf("Parall sum time: %ld\n",alg_time);
     dlclose(d_library);
 
-    clock_gettime(CLOCK_MONOTONIC, &begin);
-    printf("consistent start s = %ld, ns = %ld\n", begin.tv_sec, begin.tv_nsec);
+    //clock_gettime(CLOCK_MONOTONIC, &begin);
+    //printf("consistent start s = %ld, ns = %ld\n", begin.tv_sec, begin.tv_nsec);
     start = clock();
     int result_consistent = sum_columns(row_sum_consistent, matrix, rows_quan, columns_quan);
     finish = clock();
-    clock_gettime(CLOCK_MONOTONIC, &end);
-    printf("consistent start s = %ld, ns = %ld\n", end.tv_sec, end.tv_nsec);
-    alg_time = 1000000000*(end.tv_sec - begin.tv_sec)+(end.tv_nsec - begin.tv_nsec);
-    printf("consistent sum time: %ld , clock() = %ld \n",alg_time, finish-start);
+    //clock_gettime(CLOCK_MONOTONIC, &end);
+    //printf("consistent start s = %ld, ns = %ld\n", end.tv_sec, end.tv_nsec);
+    //alg_time = 1000000000*(end.tv_sec - begin.tv_sec)+(end.tv_nsec - begin.tv_nsec);
+    printf("consistent sum time: clock() = %ld \n", finish-start);
 
     switch (result_consistent)
     {

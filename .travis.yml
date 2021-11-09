@@ -15,12 +15,6 @@ addons:
       - python3
       - python3-pip
 
-#
-# install:
-#  - sudo apt-get update
-#  - sudo apt-get install --yes libgtest-dev
-
-# - sudo apt-get install --yes gcovr
 
 before_script:
   - pip3 install cpplint
@@ -31,18 +25,11 @@ before_script:
   - cd /usr/src/gtest
   - sudo cmake CMakeLists.txt
   - sudo make
-#  - sudo cp *.a /usr/lib
   - cd "${TRAVIS_BUILD_DIR}"
   - cmake .
   - make
 
-  #  - sudo mkdir build
-  #  - cd build
-  #  - sudo cmake .. 
-  #  - sudo make
-
-
- # - stage: Test
+ 
 script:
   - cpplint —headers=h —linelength=110 —filter=-runtime/int,-legal/copyright,-build/include_subdir,-build/include —extensions=cpp ../project/tests/matrix_test.cpp
   - valgrind --track-origins=yes --leak-check=full ./matrix_test_consistent
@@ -51,22 +38,7 @@ script:
   - cppcheck project/src/* --error-exitcode=1
   - cppcheck project/include/* --error-exitcode=1
   - cppcheck project/tests/* --error-exitcode=1
-  - cd "${TRAVIS_BUILD_DIR}" #change 1
+  - cd "${TRAVIS_BUILD_DIR}"
 
 after_success:
   - bash <(curl -s https://codecov.io/bash)
-
-
-
-  # - stage: TestCoverage
-  #   script:
-  #    - cmake -B build -DCMAKE_BUILD_TYPE=Debug -DWITH_COVERAGE=1
-  #    - make -C build all test
-  #    - curl -Os https://uploader.codecov.io/latest/linux.codecov
-  #    - chmod +x codecov
-  #    - ./codecov -f <(gcovr -x)
-  # - stage: Sanitize
-  #   script:
-  #    - cmake -B build -DCMAKE_BUILD_TYPE=Debug -DWITH_SANITIZERS=1
-  #    - make -C build
-  #    - cd build && ctest -- output-on-failure

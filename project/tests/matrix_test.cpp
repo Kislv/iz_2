@@ -33,7 +33,10 @@ TEST(MATRIX_TEST, big_rows_quanity_test) {
     fill_matrix(matrix,rows_quan,columns_quan);
 
     double * rows_sum = (double*)malloc(sizeof(double)* columns_quan);
+    time_t start = clock();
     int examination_sum = sum_columns(rows_sum, matrix, rows_quan, columns_quan);
+    time_t finish = clock();
+    printf("SUM TIME (ms) = %ld\n",finish - start);
     EXPECT_EQ(examination_sum, success);
     double * alternative_rows_sum = (double*)malloc(sizeof(double)* columns_quan);
     for(int i =0; i< columns_quan; ++i) {
@@ -54,8 +57,8 @@ TEST(MATRIX_TEST, test_init_matrix) {
              columns_quanity = (rand() % 16000 + 4000)/1000;
     int check_init = init_matrix(&matrix, rows_quanity, columns_quanity);
     EXPECT_EQ(check_init, success);
-    EXPECT_TRUE(matrix != NULL); //nullptr
-    for(int i = 0; i < rows_quanity; ++i){
+    EXPECT_TRUE(matrix != NULL);
+    for(int i = 0; i < rows_quanity; ++i) {
         EXPECT_TRUE(matrix[i] != NULL);
     }
     int check_free = free_matrix(&matrix, rows_quanity);

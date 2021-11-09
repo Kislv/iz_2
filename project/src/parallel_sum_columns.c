@@ -1,15 +1,5 @@
 #include "../include/matrix_operations.h"
 
-// void fill_matrix(double** matrix, int rows_quanity, int columns_quanity){
-//     if(matrix == NULL) return error_with_matrix;
-//     for (int i = 0;i < rows_quanity; ++i){
-//         for(int k =0; k<columns_quanity; ++k){
-//             matrix[i][k] = (double)(rand() % 20000 - 4000)/1000;
-//         }
-//     }
-//     return;
-// }
-
 double sum_column(double** matrix, int rows_quanity, int number_column) {
     al8double_t sum = 0;
     for (al4int_t i = 0; i <rows_quanity; ++i) {
@@ -19,17 +9,15 @@ double sum_column(double** matrix, int rows_quanity, int number_column) {
 }
 
 int sum_columns(double * rows_sum, double ** matrix, int rows_quanity, int columns_quanity) {
-    //printf("IN PARALLEL SUM_COLUMNS\n");
     if(unlikely(rows_sum == NULL)) return error_row_sum;
     if(unlikely(matrix == NULL)) return error_with_matrix;
-    //printf("AFTER CHEVKING FOR NULL POINTERS\n");
+
     char *shared_memory = mmap(NULL, sizeof(double) * columns_quanity, PROT_READ | PROT_WRITE,
                                MAP_SHARED | MAP_ANONYMOUS, -1, 0);
     if (unlikely(!shared_memory)) {
         printf("Failed to map\n");
         return 1;
     }
-    //printf("AFTER SHARING MEMORY WITH MMAP\n");
     int p_num = -1;
     pid_t pid =fork();
 
@@ -58,8 +46,6 @@ int sum_columns(double * rows_sum, double ** matrix, int rows_quanity, int colum
             ((double*)(shared_memory))[i] = sum_column(matrix, rows_quanity, i);
         }
     }
-    //printf("AFTER CALCULATING SUM_COLUMN\n");
-
 
     if (unlikely(pid != 0)) {
         pid_t wait_result;

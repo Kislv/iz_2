@@ -8,7 +8,7 @@ extern "C" {
 TEST(STRESS_TESTS, parallel_with_consistent) {
     srand(time(NULL));
     al4int_t rows_quan = 10000,
-        columns_quan = 5000;
+             columns_quan = 5000;
     double ** matrix = NULL;
     init_matrix(&matrix, rows_quan, columns_quan);
     fill_matrix(matrix,rows_quan, columns_quan);
@@ -20,11 +20,11 @@ TEST(STRESS_TESTS, parallel_with_consistent) {
     if (l1dcls == -1) l1dcls = sizeof(void*);
     errflag_p = posix_memalign((void**)&row_sum_i_p, l1dcls, sizeof(double)* columns_quan);
     EXPECT_EQ(errflag_p, success);
-    if(errflag_p){
+    if(errflag_p) {
         assert("Error: errflag_p !=0\n");
         free(row_sum_i_p);
         free_matrix(&matrix, rows_quan);
-        exit(1); 
+        exit(1);
     }
 
     double *row_sum_i_c =NULL;
@@ -32,20 +32,17 @@ TEST(STRESS_TESTS, parallel_with_consistent) {
     if (l1dcls == -1) l1dcls = sizeof(void*);
     errflag_c = posix_memalign((void**)&row_sum_i_c, l1dcls, sizeof(double)* columns_quan);
     EXPECT_EQ(errflag_c, success);
-    if(errflag_c){
+    if(errflag_c) {
         assert("Error: errflag_c !=0\n");
         free(row_sum_i_p);
         free(row_sum_i_c);
         free_matrix(&matrix, rows_quan);
-        exit(1); 
+        exit(1);
     }
-    //free(row_sum_i_p);
-    //free(row_sum_i_c);
-
 
     void* d_library;
     int (*my_func)( double* row_sum_i_p, double** matrix, int rows_q, int columns_q);
-    d_library = dlopen("libsum_parallel.so", RTLD_LAZY);    
+    d_library = dlopen("libsum_parallel.so", RTLD_LAZY);
     *(int**)(&my_func) = (int*)dlsym(d_library, "sum_columns");
 
 
@@ -53,7 +50,7 @@ TEST(STRESS_TESTS, parallel_with_consistent) {
     int parall_res = (*my_func)(row_sum_i_p, (double**)matrix, rows_quan, columns_quan);
     time_t finish = clock();
 
-    printf("parall sum time: clock() = %ld \n", finish-start);
+    printf("parallel sum time: clock() = %ld \n", finish - start);
 
     EXPECT_EQ(parall_res, success);
     switch (parall_res)
@@ -100,11 +97,11 @@ TEST(STRESS_TESTS, parallel_with_consistent) {
     dlclose(d_library);
 
 
-    start = clock();
+    time_t start_c = clock();
     int result_consistent = sum_columns(row_sum_i_c, matrix, rows_quan, columns_quan);
-    finish = clock();
-    printf("consistent sum time: clock() = %ld \n", finish-start);
-    
+    time_t finish_c = clock();
+    printf("consistent sum time: clock() = %ld \n", finish_c -start_c);
+
 
     EXPECT_EQ(result_consistent, success);
     switch (result_consistent)

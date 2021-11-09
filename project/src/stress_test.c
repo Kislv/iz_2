@@ -4,7 +4,7 @@
 int main() {
     srand(time(NULL));
     al4int_t rows_quan = 10000,
-        columns_quan = 5000;
+             columns_quan = 5000;
     double ** matrix = NULL;
     init_matrix(&matrix, rows_quan, columns_quan);
     fill_matrix(matrix,rows_quan, columns_quan);
@@ -15,31 +15,28 @@ int main() {
     long l1dcls = sysconf(_SC_LEVEL1_DCACHE_LINESIZE);
     if (l1dcls == -1) l1dcls = sizeof(void*);
     errflag_p = posix_memalign((void**)&row_sum_i_p, l1dcls, sizeof(double)* columns_quan);
-    if(errflag_p){
+    if(errflag_p) {
         assert("Error: errflag_p !=0\n");
         free(row_sum_i_p);
         free_matrix(&matrix, rows_quan);
-        exit(1); 
+        exit(1);
     }
 
     double *row_sum_i_c =NULL;
     int errflag_c;
     if (l1dcls == -1) l1dcls = sizeof(void*);
     errflag_c = posix_memalign((void**)&row_sum_i_c, l1dcls, sizeof(double)* columns_quan);
-    if(errflag_c){
+    if(errflag_c) {
         assert("Error: errflag_c !=0\n");
         free(row_sum_i_p);
         free(row_sum_i_c);
         free_matrix(&matrix, rows_quan);
-        exit(1); 
+        exit(1);
     }
-    //free(row_sum_i_p);
-    //free(row_sum_i_c);
-
 
     void* d_library;
     int (*my_func)( double* row_sum_i_p, double** matrix, int rows_q, int columns_q);
-    d_library = dlopen("libsum_parallel.so", RTLD_LAZY);    
+    d_library = dlopen("libsum_parallel.so", RTLD_LAZY);
     *(int**)(&my_func) = dlsym(d_library, "sum_columns");
 
 
@@ -93,17 +90,11 @@ int main() {
 
     dlclose(d_library);
 
-    //clock_gettime(CLOCK_MONOTONIC, &begin);
-    //printf("consistent start s = %ld, ns = %ld\n", begin.tv_sec, begin.tv_nsec);
     start = clock();
     int result_consistent = sum_columns(row_sum_i_c, matrix, rows_quan, columns_quan);
     finish = clock();
-    //clock_gettime(CLOCK_MONOTONIC, &end);
-    //printf("consistent start s = %ld, ns = %ld\n", end.tv_sec, end.tv_nsec);
-    //alg_time = 1000000000*(end.tv_sec - begin.tv_sec)+(end.tv_nsec - begin.tv_nsec);
-    printf("consistent sum time: clock() = %ld \n", finish-start);
-    
 
+    printf("consistent sum time: clock() = %ld \n", finish-start);
 
     switch (result_consistent)
     {

@@ -1,5 +1,3 @@
-//
-//
 #include "stdio.h"
 #include "stdlib.h"
 #include "../include/matrix_operations.h"
@@ -9,9 +7,6 @@
 
 int main(int argc, char *argv[]) {
     // argv[1] - path; argv[2] - quanity of rows; argv[3] - quanity of columns;
-    // ./consistent "/home/viktor/Projects/c+c++/iz_2/project/src/file_with_matrix.txt" "1000" "1000"
-    // ./parallel "/home/viktor/Projects/c+c++/iz_2/project/src/file_with_matrix.txt" "1000" "1000"
-    // git ls-files -c
     clock_t begin = clock();
     printf("start = %ld \n", begin);
 
@@ -23,12 +18,7 @@ int main(int argc, char *argv[]) {
     al4int_t columns_quan = atoi (argv[3]);
     double ** matrix = NULL;
     init_matrix(&matrix, rows_quan, columns_quan);
-    // argv[1] = "/home/viktor/Projects/c+c++/iz_2/project/src/file_with_matrix.txt"
 
-
-    //  FILE * fill_file = fopen(argv[1],"w");
-    //  fill_file_with_matrix(fill_file, matrix, rows_quan, columns_quan);
-    //  fclose(fill_file);
     FILE * file_with_matrix = fopen(argv[1],"r");
     if (unlikely(file_with_matrix == NULL))
     {
@@ -37,25 +27,10 @@ int main(int argc, char *argv[]) {
     }
     clock_t begin_fill = clock();
     fill_matrix(matrix, rows_quan, columns_quan);
-    //int examination_fill_matrix = fill_matrix_from_file(file_with_matrix,matrix,rows_quan,columns_quan);
+
     clock_t end_fill = clock();
     printf("Fill time =  %f\n", difftime(end_fill, begin_fill));
-    // switch (examination_fill_matrix){
-    //     case error_with_matrix:
-    //         assert("Error: matrix == NULL");
-    //         free_matrix(&matrix, rows_quan, columns_quan);
-    //         exit(error_with_matrix);
-    //     case error_with_file:
-    //         assert("Error: file == NULL");
-    //         free_matrix(&matrix, rows_quan, columns_quan);
-    //         exit(error_with_file);
-    //     case error_with_scan:
-    //         assert("Error: can't scan");
-    //         free_matrix(&matrix, rows_quan, columns_quan);
-    //         exit(error_with_scan);
-    //     default:
-    //         break;
-    // }
+
     fclose(file_with_matrix);
 
     double *row_sum = (double*)malloc(sizeof(double)* columns_quan);
@@ -81,9 +56,8 @@ int main(int argc, char *argv[]) {
 
     free (row_sum);
     free_matrix(&matrix,rows_quan);
-    sleep(1);
     clock_t end = clock();
     printf("end = %ld \n", end);
-    printf(" Time = %lf \n",difftime(end,begin)/*(double)(end - begin)/CLOCKS_PER_SEC*/);
+    printf(" Time = %lf \n",difftime(end,begin));
     return 0;
 }

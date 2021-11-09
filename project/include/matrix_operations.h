@@ -14,8 +14,6 @@
 typedef int __attribute((aligned(4))) al4int_t;
 typedef double __attribute((aligned(8))) al8double_t;
 
-#define rows 100
-#define columns 50
 #define args_quanity 4
 
 #define success 0

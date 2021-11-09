@@ -19,8 +19,8 @@ int main(int argc, char *argv[]) {
         assert("Error with quanity of arguments");
         exit(error_arg_quanity);
     }
-    int rows_quan = atoi(argv[2]);
-    int columns_quan = atoi (argv[3]);
+    al4int_t rows_quan = atoi(argv[2]);
+    al4int_t columns_quan = atoi (argv[3]);
     double ** matrix = NULL;
     init_matrix(&matrix, rows_quan, columns_quan);
     // argv[1] = "/home/viktor/Projects/c+c++/iz_2/project/src/file_with_matrix.txt"

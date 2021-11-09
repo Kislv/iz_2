@@ -3,7 +3,7 @@
 
 int main() {
     srand(time(NULL));
-    int rows_quan = 10000,
+    al4int_t rows_quan = 10000,
         columns_quan = 5000;
     double ** matrix = NULL;
     init_matrix(&matrix, rows_quan, columns_quan);
@@ -13,21 +13,15 @@ int main() {
 
     void* d_library;
     int (*my_func)( double* row_sum_parallel, double** matrix, int rows_q, int columns_q);
-    //d_library = dlopen("../build/libsum_parallel.so", RTLD_LAZY);          //without build. Correct for local
-    d_library = dlopen("libsum_parallel.so", RTLD_LAZY);          // for travis
-    //long int alg_time;
+    d_library = dlopen("libsum_parallel.so", RTLD_LAZY);    
     *(int**)(&my_func) = dlsym(d_library, "sum_columns");
 
 
-    //struct timespec begin, end;
-    //clock_gettime(CLOCK_MONOTONIC, &begin);
-    //printf("parall start s = %ld, ns = %ld\n", begin.tv_sec, begin.tv_nsec);
     time_t start = clock();
 
     int parall_res = (*my_func)(row_sum_parallel, (double**)matrix, rows_quan, columns_quan);
     time_t finish = clock();
-    //clock_gettime(CLOCK_MONOTONIC, &end);
-    //alg_time = 1000000000*(end.tv_sec - begin.tv_sec)+(end.tv_nsec - begin.tv_nsec);
+
     printf("parall sum time: clock() = %ld \n", finish-start);
 
 
@@ -72,8 +66,6 @@ int main() {
         break;
     }
 
-    //alg_time = 1000000000*(end.tv_sec - begin.tv_sec)+(end.tv_nsec - begin.tv_nsec);
-    //printf("Parall sum time: %ld\n",alg_time);
     dlclose(d_library);
 
     //clock_gettime(CLOCK_MONOTONIC, &begin);
@@ -109,7 +101,7 @@ int main() {
 
     free_matrix(&matrix, rows_quan);
     int sum_check = 0;
-    for(int k = 0; k < columns_quan; ++k) {
+    for(al4int_t k = 0; k < columns_quan; ++k) {
         if(unlikely(row_sum_consistent[k] != row_sum_parallel[k])) sum_check = 1;
     }
     if(unlikely(sum_check)) {
@@ -121,6 +113,5 @@ int main() {
     printf("stress test done\n");
     free(row_sum_consistent);
     free(row_sum_parallel);
-    //exit(0);
     return 0;
 }

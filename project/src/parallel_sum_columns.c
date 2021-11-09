@@ -11,8 +11,8 @@
 // }
 
 double sum_column(double** matrix, int rows_quanity, int number_column) {
-    double sum = 0;
-    for (int i = 0; i <rows_quanity; ++i) {
+    al8double_t sum = 0;
+    for (al4int_t i = 0; i <rows_quanity; ++i) {
         sum += matrix[i][number_column];
     }
     return sum;
@@ -54,7 +54,7 @@ int sum_columns(double * rows_sum, double ** matrix, int rows_quanity, int colum
         }
     }
     if(likely(p_num != -1)) {
-        for(int i = p_num; i< columns_quanity; i+=10) {
+        for(al4int_t i = p_num; i< columns_quanity; i+=10) {
             ((double*)(shared_memory))[i] = sum_column(matrix, rows_quanity, i);
         }
     }

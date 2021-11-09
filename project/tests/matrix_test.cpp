@@ -5,8 +5,8 @@ extern "C" {
 }
 
 TEST(MATRIX_TEST, square_matrix_test) {
-    int rows_quan = 4;
-    int columns_quan = 4;
+    al4int_t rows_quan = 4;
+    al4int_t columns_quan = 4;
     double ** matrix = NULL;
     init_matrix(&matrix, rows_quan, columns_quan);
     fill_matrix(matrix,rows_quan,columns_quan);
@@ -26,8 +26,8 @@ TEST(MATRIX_TEST, square_matrix_test) {
     free_matrix(&matrix, rows_quan);
 }
 TEST(MATRIX_TEST, big_rows_quanity_test) {
-    int rows_quan = 400;
-    int columns_quan = 4;
+    al4int_t rows_quan = 400;
+    al4int_t columns_quan = 4;
     double ** matrix = NULL;
     init_matrix(&matrix, rows_quan, columns_quan);
     fill_matrix(matrix,rows_quan,columns_quan);

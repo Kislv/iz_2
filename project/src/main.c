@@ -58,7 +58,8 @@ int main(int argc, char *argv[]) {
     // }
     fclose(file_with_matrix);
 
-    double * row_sum = (double*)malloc(sizeof(double)* columns_quan);
+    double *row_sum = (double*)malloc(sizeof(double)* columns_quan);
+
     clock_t begin_sum = clock();
     int examination_sum = sum_columns(row_sum, matrix, rows_quan,columns_quan);
     clock_t end_sum = clock();
